@@ -1,9 +1,10 @@
 const reducer = (state, action) => {
     const { type, payload } = action;
-    let foundIndex = state.cart.findIndex((el) => el.id == payload.id);
     let newCart = [];
+    let foundIndex = -1;
     switch (type) {
         case "ADD_TO_CART":
+            foundIndex = state.cart.findIndex((el) => el.id == payload.id);
             console.log("payload", payload);
             if (foundIndex === -1) {
                 const newItem = { ...payload, quantity: 1 };
@@ -17,6 +18,7 @@ const reducer = (state, action) => {
                 cart: newCart,
             };
         case "INCREASE_QUANTITY":
+            foundIndex = state.cart.findIndex((el) => el.id == payload.id);
             newCart = [...state.cart];
             newCart[foundIndex].quantity += 1;
             return {
@@ -24,6 +26,7 @@ const reducer = (state, action) => {
                 cart: newCart,
             };
         case "DECREASE_QUANTITY":
+            foundIndex = state.cart.findIndex((el) => el.id == payload.id);
             newCart = [...state.cart];
             newCart[foundIndex].quantity -= 1;
             if (newCart[foundIndex].quantity === 0) {
@@ -34,6 +37,7 @@ const reducer = (state, action) => {
                 cart: newCart,
             };
         case "DELETE":
+            foundIndex = state.cart.findIndex((el) => el.id == payload.id);
             newCart = [...state.cart];
             newCart.splice(foundIndex, 1);
             return {
