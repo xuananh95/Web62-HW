@@ -6,18 +6,11 @@ const reducer = (state, action) => {
                 ...payload,
                 id: state.contacts.length,
             };
-            let newContacts = [newContact, ...state];
+            let newContacts = [newContact, ...state.contacts];
             return {
                 ...state,
                 contacts: newContacts,
-            };
-        }
-
-        case "EDIT_CONTACT": {
-            const selectedContact = { ...payload };
-            return {
-                ...state,
-                selectedContact: selectedContact,
+                displayContacts: newContacts,
             };
         }
 
@@ -32,6 +25,7 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 contacts: newContacts,
+                displayContacts: newContacts,
             };
         }
 
@@ -42,6 +36,17 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 contacts: newContacts,
+                displayContacts: newContacts,
+            };
+        }
+
+        case "SEARCH": {
+            const newContacts = state.contacts.filter((el) =>
+                el.name.toLowerCase().includes(payload.toLowerCase())
+            );
+            return {
+                ...state,
+                displayContacts: newContacts,
             };
         }
 

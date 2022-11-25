@@ -28,6 +28,13 @@ const contactData = [
     },
 ];
 
+const initialValues = {
+    name: "",
+    email: "",
+    phone: "",
+    type: PERSONAL,
+};
+
 const HomePage = () => {
     // const [contacts, setContacts] = useState([]);
 
@@ -36,8 +43,11 @@ const HomePage = () => {
     // }, []);
     const initialState = {
         contacts: contactData,
-        selectedContact: { name: "", email: "", phone: "", type: PERSONAL },
+        displayContacts: contactData,
+        // selectedContact: { name: "", email: "", phone: "", type: PERSONAL },
     };
+
+    const [selectedContact, setSelectedContact] = useState(initialValues);
     const [state, dispatch] = useReducer(reducer, initialState);
     return (
         <div className="container mt-4">
@@ -49,10 +59,13 @@ const HomePage = () => {
             >
                 <div className="row">
                     <div className="col-12 col-md-6">
-                        <ContactForm />
+                        <ContactForm
+                            selectedContact={selectedContact}
+                            setSelectedContact={setSelectedContact}
+                        />
                     </div>
                     <div className="col-12 col-md-6">
-                        <ContactList />
+                        <ContactList setSelectedContact={setSelectedContact} />
                     </div>
                 </div>
             </ContactContext.Provider>

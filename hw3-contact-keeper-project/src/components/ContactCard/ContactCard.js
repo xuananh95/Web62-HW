@@ -3,17 +3,13 @@ import { AiOutlineMail, AiOutlinePhone } from "react-icons/ai";
 import { PERSONAL } from "../../configs/constants";
 import contactContext from "../../contexts/ContactContext/ContactContext";
 
-const ContactCard = ({ contact }) => {
+const ContactCard = ({ contact, setSelectedContact }) => {
     const contactCtx = useContext(contactContext);
     const { dispatch } = contactCtx;
 
     const onEditHandler = (contact) => {
         // console.log("edit", contact);
-        const action = {
-            type: "EDIT_CONTACT",
-            payload: contact,
-        };
-        dispatch(action);
+        setSelectedContact(contact);
     };
 
     const onDeleteHandler = (contact) => {

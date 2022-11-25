@@ -9,24 +9,21 @@ const initialValues = {
     type: PERSONAL,
 };
 
-const ContactForm = () => {
+const ContactForm = ({ selectedContact, setSelectedContact }) => {
     // State & hooks
     const contactCtx = useContext(contactContext);
     const { state, dispatch } = contactCtx;
-    console.log("form state: ", state);
-    const [contactForm, setContactForm] = useState(initialValues);
-    // useEffect(() => {
-    //     setContactForm({ ...state.selectedContact });
-    // }, []);
-    console.log("contact", contactForm);
-    const [isEditing, setIsEditing] = useState(
-        state.selectedContact.name !== ""
-    );
+    const [contactForm, setContactForm] = useState(selectedContact);
+    const [isEditing, setIsEditing] = useState(selectedContact.name !== "");
+    useEffect(() => {
+        setContactForm(selectedContact);
+        setIsEditing(selectedContact.name !== "");
+    }, [selectedContact]);
 
     // Functions
     const onChangeHandler = (event) => {
         const { name, value } = event.target;
-
+        console.log({ name, value });
         setContactForm({
             ...contactForm,
             [name]: value,
@@ -37,17 +34,18 @@ const ContactForm = () => {
         event.preventDefault();
         if (isEditing) {
             onSubmitEditContact(contactForm);
-            setContactForm(initialValues);
+            setSelectedContact(initialValues);
             setIsEditing(false);
         } else {
             onAddContact(contactForm);
-            setContactForm(initialValues);
+            setSelectedContact(initialValues);
             setIsEditing(false);
         }
     };
 
     const clearFormData = () => {
-        setContactForm(initialValues);
+        // setContactForm(initiasetlValues);
+        setSelectedContact(initialValues);
         setIsEditing(false);
     };
     const onAddContact = (contactForm) => {
@@ -153,7 +151,10 @@ const ContactForm = () => {
 
                 {isEditing ? (
                     <div>
-                        <button type="submit" className="btn btn-primary w-100">
+                        <button
+                            type="submit"
+                            className="btn btn-primary w-100 mb-2"
+                        >
                             Update Contact
                         </button>
                         <button
