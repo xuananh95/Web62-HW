@@ -15,10 +15,9 @@ const reducer = (state, action) => {
 
         case "EDIT_CONTACT": {
             const selectedContact = { ...payload };
-
             return {
                 ...state,
-                selectedContact,
+                selectedContact: selectedContact,
             };
         }
 

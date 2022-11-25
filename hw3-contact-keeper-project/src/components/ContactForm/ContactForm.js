@@ -9,16 +9,15 @@ const initialValues = {
     type: PERSONAL,
 };
 
-const ContactForm = ({ selectedContact }) => {
+const ContactForm = () => {
     // State & hooks
     const contactCtx = useContext(contactContext);
     const { state, dispatch } = contactCtx;
-    // const selected = state.selectedContact;
-    console.log("selectedContact", selectedContact);
+    console.log("form state: ", state);
     const [contactForm, setContactForm] = useState(initialValues);
-    useEffect(() => {
-        setContactForm({ ...selectedContact });
-    }, []);
+    // useEffect(() => {
+    //     setContactForm({ ...state.selectedContact });
+    // }, []);
     console.log("contact", contactForm);
     const [isEditing, setIsEditing] = useState(
         state.selectedContact.name !== ""

@@ -8,7 +8,7 @@ const ContactCard = ({ contact }) => {
     const { dispatch } = contactCtx;
 
     const onEditHandler = (contact) => {
-        console.log("edit", contact);
+        // console.log("edit", contact);
         const action = {
             type: "EDIT_CONTACT",
             payload: contact,

@@ -49,7 +49,7 @@ const HomePage = () => {
             >
                 <div className="row">
                     <div className="col-12 col-md-6">
-                        <ContactForm selectedContact={state.selectedContact} />
+                        <ContactForm />
                     </div>
                     <div className="col-12 col-md-6">
                         <ContactList />
