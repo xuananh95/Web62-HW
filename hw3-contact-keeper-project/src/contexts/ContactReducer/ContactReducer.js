@@ -7,11 +7,25 @@ const reducer = (state, action) => {
                 id: state.contacts.length,
             };
             let newContacts = [newContact, ...state.contacts];
-            return {
-                ...state,
-                contacts: newContacts,
-                displayContacts: newContacts,
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newContact),
             };
+            console.log("sending data");
+            fetch("http://127.0.0.1:5000", requestOptions)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("data added: ", data);
+                    return {
+                        ...state,
+                        contacts: data,
+                        displayContacts: data,
+                    };
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
         }
 
         case "SUBMIT_EDIT_CONTACT": {
@@ -46,6 +60,15 @@ const reducer = (state, action) => {
             );
             return {
                 ...state,
+                displayContacts: newContacts,
+            };
+        }
+
+        case "FETCH_DATA": {
+            let newContacts = [...payload];
+            return {
+                ...state,
+                contacts: newContacts,
                 displayContacts: newContacts,
             };
         }

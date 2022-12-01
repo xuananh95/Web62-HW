@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import contactContext from "../../contexts/ContactContext/ContactContext";
 import ContactCard from "../ContactCard/ContactCard";
 
@@ -7,6 +7,7 @@ const ContactList = ({ setSelectedContact }) => {
     const { state, dispatch } = contactCtx;
     const [searchText, setSearchText] = useState("");
 
+    console.log("list", state.displayContacts);
     const handleSearch = (e) => {
         const value = e.target.value;
         setSearchText(value);
