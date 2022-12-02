@@ -1,0 +1,17 @@
+import React from "react";
+import ContactCard from "../ContactCard/ContactCard";
+
+const ContactList = (props) => {
+    const { contacts } = props;
+    const contactElements = contacts.data?.map((contact) => (
+        <ContactCard key={contact.id} contact={contact} />
+    ));
+    return (
+        <div>
+            <h4>List Contacts</h4>
+            {contactElements}
+        </div>
+    );
+};
+
+export default ContactList;
