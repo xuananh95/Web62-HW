@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const logMiddleware = require("../middlewares/log");
 const router = express.Router();
 
+const authMdw = require("../middlewares/authMdw");
 let contacts = [
     {
         id: "a8fa5bee-cb01-4fb0-8465-e8b820567000",
@@ -28,7 +29,7 @@ let contacts = [
 ];
 
 // GET: get all contacts
-router.get("/", (req, res) => {
+router.get("/", authMdw, (req, res) => {
     res.json({
         data: contacts,
         statusCode: 200,

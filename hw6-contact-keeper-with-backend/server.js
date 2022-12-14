@@ -1,6 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const contactRouter = require("./routes/contacts");
 const userRouter = require("./routes/users");
+const authRouter = require("./routes/auth");
 const cors = require("cors");
 
 const checkAdminMiddleware = require("./middlewares/checkAdmin");
@@ -14,6 +16,7 @@ app.use(express.json());
 app.use(logMiddleware);
 app.use("/contacts", contactRouter);
 app.use("/users", userRouter);
+app.use("/auth", authRouter);
 
 app.get("/admin", checkAdminMiddleware, (req, res) => {
     res.send("Welcome to admin page");
