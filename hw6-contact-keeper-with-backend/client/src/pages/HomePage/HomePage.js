@@ -18,10 +18,9 @@ const HomePage = () => {
             const response = await ContactService.create(contact);
             setContactsData(response.data.data);
         } catch (error) {
-            setAddContactError(error.response.data);
+            setAddContactError(error);
             setTimeout(() => {
                 setAddContactError(null);
-                jjjjjjjjjjjjjjjjjjj;
             }, 3000);
         }
     };

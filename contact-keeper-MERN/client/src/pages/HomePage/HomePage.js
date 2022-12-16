@@ -11,7 +11,6 @@ const HomePage = () => {
     const onAddContact = async (contact) => {
         // setContacts((prev) => [...prev, contact]);
         const response = await ContactService.create(contact);
-        console.log(response);
     };
     return (
         <PageContainer
