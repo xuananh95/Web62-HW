@@ -14,7 +14,6 @@ const useFetchContacts = (props) => {
             setContacts(contactData);
             setLoading(false);
         } catch (error) {
-            console.log(error);
             setLoading(false);
             setError(error);
         }

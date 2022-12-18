@@ -3,13 +3,12 @@ import "./LoginForm.css";
 import { useForm } from "react-hook-form";
 
 const LoginForm = (props) => {
-    const { onLoginSubmit } = props;
+    const { onLoginSubmit, loading, loginError } = props;
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    console.log(errors);
     return (
         <div className="login-form-container">
             <h2 className="text-center display-5">Log in</h2>
@@ -46,6 +45,7 @@ const LoginForm = (props) => {
                         </small>
                     )}
                 </div>
+                {loginError && <p className="text-danger">{loginError}</p>}
                 <button type="submit" className="btn btn-primary w-100 mt-3">
                     Submit
                 </button>

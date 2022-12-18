@@ -1,8 +1,7 @@
 const jwt = require("jsonwebtoken");
 const authMwd = (req, res, next) => {
     const token = req.headers["x-auth-token"];
-    console.log(req.header)
-    if (!token){
+    if (!token) {
         return res.status(400).json({
             msg: "No token, authorization denied",
         });
@@ -12,10 +11,11 @@ const authMwd = (req, res, next) => {
         if (decoded) {
             next();
         }
-    }  catch (err) {
+    } catch (err) {
         return res.status(401).json({
-            msg: "Invalid token",})
+            msg: "Invalid token",
+        });
     }
-}
+};
 
 module.exports = authMwd;

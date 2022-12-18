@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const authMdw = require("../middlewares/authMdw");
 
 const users = [
     {
@@ -27,26 +28,27 @@ const EXPIRE_IN = process.env.JWT_EXPIRE_IN;
 
 router.post("/login", (req, res) => {
     // validation
-    const { username, password } = req.body;
+    const username = req.body.username;
+    const pwd = req.body.password;
 
     // check user exist
-    if (!username || !password) {
+    if (!username || !pwd) {
         return res.status(401).json({
             msg: "Missing required keys!",
         });
     }
 
-    const existedUser = users.find(
-        (el) => el.username === username && el.password === password
-    );
+    const existedUser = users.find((el) => {
+        return el.username === username && el.password === pwd;
+    });
+    console.log(existedUser);
     if (!existedUser) {
         return res.status(400).json({
             msg: "Invalid credentials",
         });
     }
     // create token
-    delete existedUser.password;
-    const payload = { ...existedUser };
+    const { password, ...payload } = existedUser;
     const token = jwt.sign(payload, SECRET_KEY, {
         expiresIn: EXPIRE_IN,
     });
@@ -55,6 +57,14 @@ router.post("/login", (req, res) => {
     return res.status(200).json({
         isAuthenticated: true,
         token: token,
+        user: payload,
+    });
+});
+
+router.get("/", authMdw, (req, res) => {
+    const { user } = req.user;
+    res.json({
+        user,
     });
 });
 
