@@ -1,11 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import authContext from "../../contexts/AuthContext/AuthContext";
 
 const Header = (props) => {
-    const { state } = useContext(authContext);
+    const { state, fetchUserInformation } = useContext(authContext);
     const { isAuthenticated } = state;
+    useEffect(() => {
+        if (!state.user) {
+            console.log("fetching");
+            fetchUserInformation();
+        }
+    }, [state]);
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,8 +46,7 @@ const Header = (props) => {
                             </li>
                         </ul>
                         {isAuthenticated ? (
-                            // <p>Hello {state.user.username}</p>
-                            <p></p>
+                            <p>Hello {state.user?.username}</p>
                         ) : (
                             <div className="authentication-container me-3">
                                 <Link to="/login">
